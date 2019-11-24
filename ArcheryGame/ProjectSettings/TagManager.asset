@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - arrow
+  - balloon
+  - Bounding Box
+  - castle
+  - speeddown
+  - bonusarrow
   layers:
   - Default
   - TransparentFX
