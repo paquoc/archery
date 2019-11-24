@@ -12,7 +12,7 @@ public class GameData : MonoBehaviour, ArrowObserver
     private int numFlyingArrow = 0;
     private int hp = 1000;
     private int level = 1;
-    private int bonusArrowC = 3;
+    private int bonusArrowC = 1;
 
     public int Score { get => score; set => score = value; }
     public int NumArrow { get => numArrow; set => numArrow = value; }

@@ -111,7 +111,7 @@ public class Bow : MonoBehaviour
         float x = stringPullout.x, y = stringPullout.y;
         float force = Mathf.Sqrt(x * x + y * y);
         stringPullout = stringRestPosition;
-        arrow.GetComponent<Arrow>().Fly(force * 200);
+        arrow.GetComponent<Arrow>().Fly(force * 30);
         Invoke("CreateArrow", timeRespawnArrow);
         SetState(BowState.noArrow);
     }
