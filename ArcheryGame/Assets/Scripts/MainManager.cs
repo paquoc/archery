@@ -15,6 +15,7 @@ public class MainManager : MonoBehaviour, BalloonObserver, ArrowObserver
     [SerializeField] GameObject uiManager;
     [SerializeField] GameObject Castle;
     public GameObject BG;
+    public GameObject snow;
 
     //private BowArrowManager BAManager;
     private LevelManager LVManager;
@@ -85,7 +86,7 @@ public class MainManager : MonoBehaviour, BalloonObserver, ArrowObserver
         // -- End change background
         if (playerData.Level != 1)
         {
-            playerData.AdjustArrow((LVManager.currentLevel + 1) + 1);
+            playerData.AdjustArrow((LVManager.currentLevel + 1));
             playerData.AdjustHP((LVManager.currentLevel + 1) + 1);
             AUManager.UIPlaySFX("NextLevel");
         }
@@ -290,6 +291,11 @@ public class MainManager : MonoBehaviour, BalloonObserver, ArrowObserver
                 int index = time % listBG.Count;
                 BG.GetComponent<SpriteRenderer>().sprite = listBG[index];
                 isChangingBG = false;
+                //----- Show snow-- 
+                if (time % 2 == 0)
+                    snow.SetActive(true);
+                else
+                    snow.SetActive(false);
             }
         }
     }
@@ -307,5 +313,4 @@ public class MainManager : MonoBehaviour, BalloonObserver, ArrowObserver
             }
         }
     }
-
 }
