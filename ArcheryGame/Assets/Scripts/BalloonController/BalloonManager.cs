@@ -31,7 +31,7 @@ public class BalloonManager : MonoBehaviour, BalloonObserver
         leftBoundingBox = boundingBox.transform.Find("left").transform.position;
         topBoundingBox = boundingBox.transform.Find("top").transform.position;
         bottomBoundingBox = boundingBox.transform.Find("bottom").transform.position;
-        startPosition = new Vector3(rightBoundingBox.x + 1, rightBoundingBox.y, rightBoundingBox.z); 
+        startPosition = new Vector3(rightBoundingBox.x + 1, topBoundingBox.y + 2, rightBoundingBox.z); 
         InitBalloonPool();
     }
 

@@ -7,7 +7,7 @@ public class ItemManager : MonoBehaviour
     public static ItemManager Instance;
     private static int maximumNumber = 0;
 
-    private static int ratio = 2;
+    private static int ratio = 3;
     private List<int> listIndexRandom = new List<int>();
 
     private static int lastBalloonNumber = 0;
