@@ -49,6 +49,7 @@ public class MainManager : MonoBehaviour, BalloonObserver, ArrowObserver
         UIs = uiManager.GetComponent<UIManager>();
         playerData = GameData.Instance;
         AUManager.playMusic("MainMenu");
+        PlayerPrefs.DeleteAll();
     }
 
     private void setDefaultBG()
