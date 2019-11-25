@@ -117,15 +117,11 @@ public class MainManager : MonoBehaviour, BalloonObserver, ArrowObserver
     {
         AUManager.UIPlaySFX("EndGame");
         AUManager.playMusic("MainMenu");
-        if (PlayerPrefs.HasKey("HiScore"))
-        {
-            int lastHiScore = PlayerPrefs.GetInt("HiScore");
-            if (lastHiScore < playerData.Score) PlayerPrefs.SetInt("HiScore", playerData.Score);
-        }
-        else
-        {
-            PlayerPrefs.SetInt("HiScore",playerData.Score);
-        }
+
+        int lastHiScore = SaveLoadSystem.GetInt(SaveLoadSystem.KeyHiScore, -1, true);
+        if (lastHiScore < 0 || lastHiScore < playerData.Score)
+            SaveLoadSystem.SetInt(SaveLoadSystem.KeyHiScore, playerData.Score, true);
+
         gameState = GameStates.end;
         Time.timeScale = 0f;
         UIs.endScreen.SetActive(true);

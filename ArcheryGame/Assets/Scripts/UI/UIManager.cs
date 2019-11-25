@@ -22,14 +22,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.HasKey("HiScore"))
-        {
-            //hiScoreText.text = PlayerPrefs.GetInt("HiScore").ToString();
-        }
-        else
-        {
-            hiScoreText.text = "0";
-        }
+        
     }
 
     // Update is called once per frame
@@ -43,7 +36,6 @@ public class UIManager : MonoBehaviour
         scoreText.text = GameData.Instance.Score.ToString();
         currentScoreText.text = GameData.Instance.Score.ToString();
         endScoreText.text = GameData.Instance.Score.ToString();
-       
     }
 
     public void UpdateHPoint()

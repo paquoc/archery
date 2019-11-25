@@ -10,7 +10,7 @@ public class GameData : MonoBehaviour, ArrowObserver
     private int score = 0;
     private int numArrow = 15;
     private int numFlyingArrow = 0;
-    private int hp = 10;
+    private int hp = 1;
     private int level = 1;
     private int bonusArrowC = 1;
 
