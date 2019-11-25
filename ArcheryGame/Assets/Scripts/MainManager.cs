@@ -120,7 +120,12 @@ public class MainManager : MonoBehaviour, BalloonObserver, ArrowObserver
 
         int lastHiScore = SaveLoadSystem.GetInt(SaveLoadSystem.KeyHiScore, -1, true);
         if (lastHiScore < 0 || lastHiScore < playerData.Score)
+        {
             SaveLoadSystem.SetInt(SaveLoadSystem.KeyHiScore, playerData.Score, true);
+            lastHiScore = playerData.Score;
+        }
+
+        UIs.UpdateHighScore(lastHiScore);
 
         gameState = GameStates.end;
         Time.timeScale = 0f;

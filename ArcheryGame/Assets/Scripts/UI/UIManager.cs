@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -103,5 +104,10 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
         mainMenu.SetActive(false);
+    }
+
+    internal void UpdateHighScore(int lastHiScore)
+    {
+        hiScoreText.text = lastHiScore.ToString();
     }
 }
