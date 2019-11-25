@@ -57,16 +57,7 @@ public class Bow : MonoBehaviour
     }
 
     void Update()
-    {
-        
-      
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-        }
-
-        // game is steered via mouse
-        // (also works with touch on android)
+    {  
         if (Input.GetMouseButtonDown(0) && MainManager.Instance.gameState == MainManager.GameStates.game)
         {
             if (IsPointerOverUIObject())
@@ -85,8 +76,6 @@ public class Bow : MonoBehaviour
             PullBowString(Input.mousePosition);
         }
 
-        // ok, player released the mouse
-        // (player released the touch on android)
         if (Input.GetMouseButtonUp(0) && bowPrepared)
         {
             if (!GameData.Instance.IsEnoughArrow(1))
@@ -94,7 +83,6 @@ public class Bow : MonoBehaviour
             PlayStringSound();
             Shoot();
         }
-        // in any case: update the bowstring line renderer
         DrawBowString();
     }
 
