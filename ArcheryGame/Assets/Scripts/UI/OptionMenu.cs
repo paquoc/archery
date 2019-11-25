@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using System;
 
 public class OptionMenu : MonoBehaviour
 {
@@ -57,28 +58,26 @@ public class OptionMenu : MonoBehaviour
             resolutionLabel.text = Screen.width.ToString() + " x " + Screen.height.ToString();
         }
 
-        if (PlayerPrefs.HasKey("MasterVol"))
-        {
-            theMixer.SetFloat("MasterVol", PlayerPrefs.GetFloat("MasterVol"));
-            mastSlider.value = PlayerPrefs.GetFloat("MasterVol");
-        }
-
-        if (PlayerPrefs.HasKey("MusicVol"))
-        {
-            theMixer.SetFloat("MusicVol", PlayerPrefs.GetFloat("MusicVol"));
-            musicSlider.value = PlayerPrefs.GetFloat("MusicVol");
-        }
-
-        if (PlayerPrefs.HasKey("SFXVol"))
-        {
-            theMixer.SetFloat("SFXVol", PlayerPrefs.GetFloat("SFXVol"));
-            sfxSlider.value = PlayerPrefs.GetFloat("SFXVol");
-        }
+        SetMixerAndSliderWithKey(SaveLoadSystem.KeyMasterVol, mastSlider);
+        SetMixerAndSliderWithKey(SaveLoadSystem.KeyMusicVol, musicSlider);
+        SetMixerAndSliderWithKey(SaveLoadSystem.KeySFXVol, sfxSlider);
 
         mastLabel.text = (mastSlider.value + 100).ToString();
         musicLabel.text = (musicSlider.value + 100).ToString();
         sfxLabel.text = (sfxSlider.value + 100).ToString();
 
+    }
+
+    private void SetMixerAndSliderWithKey(string key, Slider slider)
+    {
+        float valueFromDisk = SaveLoadSystem.GetFloat(key, -1);
+        if (valueFromDisk < 0)
+        {
+            valueFromDisk = 1f;
+            SaveLoadSystem.SetFloat(key, valueFromDisk);
+        }
+        theMixer.SetFloat(key, valueFromDisk);
+        slider.value = valueFromDisk;
     }
 
     // Update is called once per frame
@@ -131,10 +130,8 @@ public class OptionMenu : MonoBehaviour
     public void SetMasterVol()
     {
         mastLabel.text = (mastSlider.value + 100).ToString();
-
         theMixer.SetFloat("MasterVol", mastSlider.value);
-
-        PlayerPrefs.SetFloat("MasterVol", mastSlider.value);
+        SaveLoadSystem.SetFloat(SaveLoadSystem.KeyMasterVol, mastSlider.value);
     }
 
     public void SetMusicVol()
@@ -143,7 +140,7 @@ public class OptionMenu : MonoBehaviour
 
         theMixer.SetFloat("MusicVol", musicSlider.value);
 
-        PlayerPrefs.SetFloat("MusicVol", musicSlider.value);
+        SaveLoadSystem.SetFloat(SaveLoadSystem.KeyMusicVol, musicSlider.value);
     }
 
     public void SetSFXVol()
@@ -152,7 +149,7 @@ public class OptionMenu : MonoBehaviour
 
         theMixer.SetFloat("SFXVol", sfxSlider.value);
 
-        PlayerPrefs.SetFloat("SFXVol", sfxSlider.value);
+        SaveLoadSystem.SetFloat(SaveLoadSystem.KeySFXVol, sfxSlider.value);
     }
 
     public void PlaySFXLoop()

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -37,20 +38,9 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.HasKey("MasterVol"))
-        {
-            theMixer.SetFloat("MasterVol", PlayerPrefs.GetFloat("MasterVol"));
-        }
-
-        if (PlayerPrefs.HasKey("MusicVol"))
-        {
-            theMixer.SetFloat("MusicVol", PlayerPrefs.GetFloat("MusicVol"));
-        }
-
-        if (PlayerPrefs.HasKey("SFXVol"))
-        {
-            theMixer.SetFloat("SFXVol", PlayerPrefs.GetFloat("SFXVol"));
-        }
+        SetMixerWithKey(SaveLoadSystem.KeyMasterVol);
+        SetMixerWithKey(SaveLoadSystem.KeyMusicVol);
+        SetMixerWithKey(SaveLoadSystem.KeySFXVol);
 
         bowRelease = Resources.Load<AudioClip>("Sounds/SFX/BowRelease");
         bowDraw = Resources.Load<AudioClip>("Sounds/SFX/BowDraw");
@@ -64,6 +54,17 @@ public class AudioManager : MonoBehaviour
         inGame = Resources.Load<AudioClip>("Sounds/Music/InGame");
 
         BGMSource.loop = true;
+    }
+
+    private void SetMixerWithKey(string key)
+    {
+        float valueFromDisk = SaveLoadSystem.GetFloat(key, -1);
+        if (valueFromDisk < 0)
+        {
+            valueFromDisk = 1f;
+            SaveLoadSystem.SetFloat(key, valueFromDisk);
+        }
+        theMixer.SetFloat(key, valueFromDisk);
     }
 
     // Update is called once per frame

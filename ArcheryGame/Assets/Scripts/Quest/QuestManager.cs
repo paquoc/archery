@@ -9,6 +9,7 @@ public class QuestManager : MonoBehaviour, BalloonObserver, ArrowObserver
     public GameObject QuestUiObject;
     public GameObject ArrowBonusPrefab;
     IQuest CurrentQuest;
+    GameObject CurrentQuestObject;
     int curr = 0;
     public List<GameObject> ListQuestPrefab = new List<GameObject>();
 
@@ -19,16 +20,21 @@ public class QuestManager : MonoBehaviour, BalloonObserver, ArrowObserver
 
     void Start()
     {
-        CurrentQuest = GetNewQuest();
+        CreateNewQuest();
+    }
+
+    void CreateNewQuest()
+    {
+        CurrentQuestObject = GetNewQuestObject();
+        CurrentQuest = CurrentQuestObject.GetComponent<IQuest>();
         CurrentQuest.InitValue();
         CurrentQuest.ShowUi(QuestUiObject);
     }
 
-    private IQuest GetNewQuest()
+    private GameObject GetNewQuestObject()
     {
         int randIdx = UnityEngine.Random.Range(0, ListQuestPrefab.Count);
-        IQuest res = ((GameObject)Instantiate(ListQuestPrefab[randIdx])).GetComponent<IQuest>();
-        return res;
+        return (GameObject)Instantiate(ListQuestPrefab[randIdx]);
     }
 
     public void NotifyBalloonWithItemStateChanged(GameObject balloon, Balloon.BalloonState balloonState, Balloon.ItemState itemState)
@@ -39,10 +45,11 @@ public class QuestManager : MonoBehaviour, BalloonObserver, ArrowObserver
 
     public void OnCurrentQuestDone(int numArrowReward)
     {
+        MainManager.Instance.AdjustArrow(numArrowReward);
         ShowAnimAddArrowBonus(numArrowReward);
-        CurrentQuest = GetNewQuest();
-        CurrentQuest.InitValue();
-        CurrentQuest.ShowUi(QuestUiObject);
+        Destroy(CurrentQuestObject);
+
+        CreateNewQuest();
     }
 
     public void NotifyArrowStateChanged(GameObject arrow, Arrow.ArrowState state)
@@ -72,6 +79,5 @@ public class QuestManager : MonoBehaviour, BalloonObserver, ArrowObserver
     {
         yield return new WaitForSeconds(time);
         Destroy(arrowBonus);
-        MainManager.Instance.AdjustArrow(numArrow);
     }
 }
