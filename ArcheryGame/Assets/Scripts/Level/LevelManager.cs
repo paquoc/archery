@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour
     List<Level> levelList = new List<Level>();
 
     private ItemManager itemManager;
+    private float generateAfterTime = 1.5f;
 
 
     // Start is called before the first frame update
@@ -31,7 +32,7 @@ public class LevelManager : MonoBehaviour
     public void StartLevel()
     {
         bow.SetActive(true);
-        StartCoroutine(CreateBalloons(Random.Range(1f, 1.5f)));
+        StartCoroutine(CreateBalloons(Random.Range(1f, generateAfterTime)));
     }
 
     IEnumerator CreateBalloons(float seconds)
@@ -58,6 +59,7 @@ public class LevelManager : MonoBehaviour
     {
         GenerateNewLevel();
         currentLevel++;
+        generateAfterTime *= 0.99f;   
         StartLevel();
     }
 
@@ -71,7 +73,7 @@ public class LevelManager : MonoBehaviour
         Level newLevel;
         if (levelList.Count != 0)
         {
-            newLevel = new Level(levelList[currentLevel].balloonNumber + 3, levelList[currentLevel].balloonSpeed + 1f, levelList[currentLevel].balloonScore + 10);
+            newLevel = new Level(levelList[currentLevel].balloonNumber + 3, levelList[currentLevel].balloonSpeed + 0.2f, levelList[currentLevel].balloonScore + 10);
         }
         else
         {

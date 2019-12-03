@@ -86,7 +86,7 @@ public class MainManager : MonoBehaviour, BalloonObserver, ArrowObserver
         // -- End change background
         if (playerData.Level != 1)
         {
-            playerData.AdjustArrow((LVManager.currentLevel + 1));
+            playerData.AdjustArrow((LVManager.currentLevel + 2));
             playerData.AdjustHP((LVManager.currentLevel + 1) + 1);
             AUManager.UIPlaySFX("NextLevel");
         }
