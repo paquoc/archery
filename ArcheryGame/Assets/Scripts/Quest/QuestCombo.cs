@@ -16,7 +16,6 @@ public class QuestCombo : MonoBehaviour, IQuest
 
     public void InitValue()
     {
-        NumBalloonCombo = UnityEngine.Random.Range(2, 5);
         NumBalloonCombo = 2;
         currentAmount = 0;
         NumArrowReward = (int)Mathf.Floor(NumBalloonCombo * 1.8f);

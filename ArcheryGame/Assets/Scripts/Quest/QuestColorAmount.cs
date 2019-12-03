@@ -34,7 +34,6 @@ public class QuestColorAmount : MonoBehaviour, IQuest
 
     private bool IsMatch(Color balloonColor)
     {
-        return true;
         return balloonColor == this.ColorRequire;
     }
 
@@ -68,7 +67,7 @@ public class QuestColorAmount : MonoBehaviour, IQuest
     public void InitValue()
     {
         currentAmount = 0;
-        totalAmount = UnityEngine.Random.Range(1, 2);
+        totalAmount = UnityEngine.Random.Range(2, 6);
         NumArrowReward = (int)Math.Floor(0.5 * totalAmount) + 1;
         ColorRequire = ColorDefine.GetRandomColor();
     }
